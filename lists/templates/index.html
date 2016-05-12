@@ -4,14 +4,23 @@
     <title>To-Do lists</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-      <meta name="description" content="Demo project">
+      <meta name="description" content="To-do list TDD project">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
     <style type="text/css"></style>
   </head>
   <body>
     <h1>To-Do lists</h1>
-    <input id="id_new_item" placeholder="Enter a to-do item"></input>
+    <form method="post">
+      {% csrf_token %}
+      <input name="item_text" id="id_new_item" placeholder="Enter a to-do item"></input>
+    </form>
+
+    <table id="id_list_table">
+      {% for item in items %}
+        <tr><td>{{ forloop.counter }}: {{ item.text }}</td></tr>
+      {% endfor %}
+    </table>
   </body>
   <script type="text/javascript"></script>
 </html>
