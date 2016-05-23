@@ -47,3 +47,17 @@ class HomePageTest(TestCase):
     response = home_page(request)
 
     self.assertIn('A new list item', response.content.decode())
+
+  def test_home_page_only_saves_items_when_necessary(self):
+    request = HttpRequest()
+    home_page(request)
+    self.assertEqual(Item.objects.all().count(), 0)
+
+  def test_home_page_only_saves_item_with_text(self):
+    request = HttpRequest()
+    request.method = 'POST'
+    request.POST['item_text'] = u''
+    response = home_page(request)
+    self.assertEqual(Item.objects.all().count(), 0)
+
+  
